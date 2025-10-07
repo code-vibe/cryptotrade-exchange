@@ -1,0 +1,151 @@
+# Default values for cryptotrade-exchange
+replicaCount: 2
+
+image:
+  backend:
+    repository: cryptotrade/backend
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  frontend:
+    repository: cryptotrade/frontend
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podSecurityContext:
+  fsGroup: 2000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  type: ClusterIP
+  backend:
+    port: 8080
+  frontend:
+    port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: cryptotrade.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+          backend: frontend
+        - path: /api
+          pathType: Prefix
+          backend: backend
+        - path: /ws
+          pathType: Prefix
+          backend: backend
+  tls:
+    - secretName: cryptotrade-tls
+      hosts:
+        - cryptotrade.example.com
+
+resources:
+  backend:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  frontend:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Environment Configuration
+env:
+  DATABASE_URL: "postgresql://postgres:postgres@cryptotrade-postgresql:5432/cryptotrade"
+  REDIS_URL: "redis://cryptotrade-redis-master:6379"
+  NATS_URL: "nats://cryptotrade-nats:4222"
+  JWT_SECRET: "your-super-secret-jwt-key"
+  RUST_LOG: "info"
+  OTEL_EXPORTER_JAEGER_ENDPOINT: "http://jaeger:14268/api/traces"
+  OTEL_SERVICE_NAME: "cryptotrade-backend"
+
+# Database Configuration
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "postgres"
+    database: "cryptotrade"
+  primary:
+    persistence:
+      enabled: true
+      size: 20Gi
+
+# Redis Configuration
+redis:
+  enabled: true
+  auth:
+    enabled: false
+  master:
+    persistence:
+      enabled: true
+      size: 8Gi
+
+# Monitoring Stack
+monitoring:
+  prometheus:
+    enabled: true
+    server:
+      persistentVolume:
+        enabled: true
+        size: 20Gi
+  
+  grafana:
+    enabled: true
+    persistence:
+      enabled: true
+      size: 10Gi
+    adminPassword: "admin123"
+  
+  jaeger:
+    enabled: true
+  
+  loki:
+    enabled: true
+
+# Vault Configuration
+vault:
+  enabled: true
+  dev:
+    enabled: true
+  server:
+    dev:
+      enabled: true

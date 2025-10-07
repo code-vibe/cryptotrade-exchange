@@ -1,0 +1,60 @@
+[package]
+name = "cryptotrade-core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "cryptotrade_core"
+path = "src/lib.rs"
+
+[dependencies]
+# Database
+sqlx = { workspace = true }
+
+# Authentication
+jsonwebtoken = { workspace = true }
+bcrypt = { workspace = true }
+totp-rs = { workspace = true }
+base32 = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Configuration
+config = { workspace = true }
+
+# Error handling
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# Time handling
+chrono = { workspace = true }
+
+# UUID
+uuid = { workspace = true }
+
+# Validation
+validator = { workspace = true }
+
+# Redis
+redis = { workspace = true }
+
+# HTTP client
+reqwest = { workspace = true }
+
+# Async runtime
+tokio = { workspace = true }
+
+# Logging
+tracing = { workspace = true }
+
+# OpenAPI documentation
+utoipa = { workspace = true }
+
+
+# Decimal precision for financial calculations
+rust_decimal = { workspace = true }
+
+# Random number generation
+rand = { workspace = true }

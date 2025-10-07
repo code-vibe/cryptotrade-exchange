@@ -1,0 +1,91 @@
+[workspace]
+members = [
+    "backend/core",
+    "backend/api",
+]
+resolver = "2"
+
+
+
+
+[workspace.dependencies]
+# Async runtime
+tokio = { version = "1.37", features = ["full"] }
+tokio-util = "0.7"
+base64ct = "=1.7.1"
+
+# Random number generation
+rand = "0.8"
+
+# Web framework
+axum = { version = "0.7", features = ["ws", "multipart"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+hyper = "1.0"
+
+
+# Database
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono", "json", "rust_decimal"] }
+sea-query = "0.30"
+sea-query-postgres = "0.4"
+
+# Redis
+redis = { version = "0.24", features = ["tokio-comp", "connection-manager"] }
+
+# Message queue
+async-nats = "0.33"
+
+# WebSocket
+tokio-tungstenite = "0.21"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# HTTP client
+reqwest = { version = "0.11", features = ["json"] }
+
+# Security
+bcrypt = "0.15"
+jsonwebtoken = "9.2"
+totp-rs = "5.4"
+base32 = "0.5"
+# UUID
+uuid = { version = "1.7", features = ["v4", "serde"] }
+
+# Time and date
+chrono = { version = "0.4", features = ["serde"] }
+time = "0.3"
+
+# Decimal numbers
+rust_decimal = { version = "1.33", features = ["serde"] }
+
+# Validation
+validator = { version = "0.16", features = ["derive"] }
+
+# Logging and tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Error handling
+anyhow = "1.0"
+thiserror = "2.0"
+
+# Configuration
+config = "0.14"
+
+# gRPC
+tonic = "0.10"
+prost = "0.12"
+
+# Blockchain
+ethers = { version = "2.0", features = ["ws"] }
+
+# Environment variables
+dotenvy = "0.15"
+
+
+
+# OpenAPI / Swagger
+utoipa = { version = "5", features = ["axum_extras", "chrono", "uuid"] }
+utoipa-swagger-ui = { version = "8.0.0", features = ["axum" , "vendored"] }
