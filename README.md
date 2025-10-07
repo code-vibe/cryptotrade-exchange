@@ -327,7 +327,7 @@ GET /api/v1/transactions            # Get transaction history
 }
 ```
 
-## 📊 Monitoring & Observability
+##  Monitoring & Observability
 
 ### Accessing Monitoring Tools
 
@@ -405,7 +405,7 @@ docker stack deploy -c docker-compose.prod.yml cryptotrade
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
 
-## 🔒 Security
+##  Security
 
 ### Security Features
 
@@ -528,12 +528,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Open Source Contributors**: All the amazing library maintainers
 - **Security Researchers**: For keeping the ecosystem secure
 
-##  Links
 
-- **Live Demo**: [https://demo.cryptotrade-exchange.com](https://demo.cryptotrade-exchange.com)
-- **Documentation**: [https://docs.cryptotrade-exchange.com](https://docs.cryptotrade-exchange.com)
-- **API Docs**: [https://api.cryptotrade-exchange.com/docs](https://api.cryptotrade-exchange.com/docs)
-- **Status Page**: [https://status.cryptotrade-exchange.com](https://status.cryptotrade-exchange.com)
 
 ---
 
